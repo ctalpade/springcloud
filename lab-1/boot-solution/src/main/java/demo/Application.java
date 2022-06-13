@@ -15,7 +15,7 @@ import demo.domain.Player;
 import demo.domain.Team;
 import demo.repository.TeamRepository;
 
-@SpringBootApplication
+@SpringBootApplication()
 public class Application {
 
 	@Autowired TeamRepository teamRepository;
