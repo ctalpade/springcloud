@@ -19,6 +19,7 @@ public class SentenceController {
 	 */
 	@GetMapping("/sentence")
 	public @ResponseBody String getSentence() {
+		System.out.println("=============== Inside getSentence =================");
 	  return 
 		"<h3>Some Sentences</h3><br/>" +	  
 		buildSentence() + "<br/><br/>" +
@@ -35,15 +36,19 @@ public class SentenceController {
 	public String buildSentence() {
 		String sentence = "There was a problem assembling the sentence!";
 		try{
+			System.out.println("$$$$$$$$$$$$$$$$$ Will try to reach the service using eureka");
+			 
 			sentence =  
-				String.format("%s %s %s %s %s.",
-					getWord("SUBJECT"),
-					getWord("VERB"),
-					getWord("ARTICLE"),
-					getWord("ADJECTIVE"),
-					getWord("NOUN") );			
+				String.format("%s %s %s %s %s .",
+					getWord("LAB-4-SUBJECT"),
+					getWord("LAB-4-VERB"),
+					getWord("LAB-4-ARTICLE"),
+					getWord("LAB-4-ADJECTIVE"),
+					getWord("LAB-4-NOUN") );
+					
 		} catch ( Exception e ) {
 			System.out.println(e);
+			e.printStackTrace();
 		}
 		return sentence;
 	}
@@ -53,7 +58,9 @@ public class SentenceController {
 	 * of speech is indicated by the given service / client ID:
 	 */
 	public String getWord(String service) {
-		return template.getForObject("http://" + service, String.class);
+		String url = "http://" + service;
+		System.out.println("================== URL =============== "+url);
+		return template.getForObject(url, String.class);
 	
 	}
 

@@ -20,18 +20,23 @@ public class SentenceController {
 	
 	@GetMapping("/sentence")
 	public @ResponseBody String getSentence() {
-	  return String.format("%s %s %s %s %s.",
-		  getWord("LAB-4-SUBJECT"),
+		System.out.println("$$$$$$$$$$$$$$$$$ Will try to reach the subject service using eureka$$$$$$$$$$$$");
+		//%s %s %s %s
+	  return String.format("%s .",
+		  getWord("LAB-4-SUBJECT"));
+	  /*,
 		  getWord("LAB-4-VERB"),
 		  getWord("LAB-4-ARTICLE"),
 		  getWord("LAB-4-ADJECTIVE"),
 		  getWord("LAB-4-NOUN") );
+		 */
 	}
 
 	public String getWord(String service) {
         List<ServiceInstance> list = client.getInstances(service);
         if (list != null && list.size() > 0 ) {
       	URI uri = list.get(0).getUri();
+      	System.out.println("============== URI =========== "+uri);
 	      	if (uri !=null ) {
 	      		return (new RestTemplate()).getForObject(uri,String.class);
 	      	}
